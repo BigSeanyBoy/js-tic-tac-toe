@@ -1,3 +1,10 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .board {
   height: 120px;
   width: 120px;
@@ -10,6 +17,17 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
 .cell:hover {
   cursor: pointer;
+}
+
+.new-game {
+  margin: 10px;
 }
