@@ -6,12 +6,16 @@ const gameBoard = (() => {
     return typeof boardState[index] === 'number';
   }
 
+  const resetBoardState = () => {
+    boardState = Array(9).fill().map((_, i) => i + 1);
+  }
+
   const updateBoardState = (index) => {
     if (positionAvailable(index)) {
       boardState[index] = playerTurn === 1 ? 'X' : 'O';
       if (gameOver()) {
-        alert(`Player ${playerTurn} Wins!`);
-        boardState = Array(9).fill().map((_, i) => i + 1);
+        alert(`${displayController.currentPlayer(playerTurn)} Wins!`);
+        resetBoardState();
         return;
       }
       playerTurn = Math.abs(playerTurn - 2) + 1;
@@ -57,7 +61,7 @@ const gameBoard = (() => {
 
   const print = () => {
     const playerHeader = document.querySelector('.player-header');
-    playerHeader.textContent = `Player ${playerTurn }'s Turn`;
+    playerHeader.textContent = `${displayController.currentPlayer(playerTurn)}'s Turn`;
     const board = document.querySelector('.board');
     while (board.firstChild) {
       board.removeChild(board.firstChild);
@@ -79,10 +83,26 @@ const gameBoard = (() => {
     }
   }
 
-  return {updateBoardState, print};
+  return {updateBoardState, resetBoardState, print};
 })();
 
+const player = (name) => {
+  const getName = () => {return name};
+  return {getName};
+}
+
 const displayController = (() => {
+  const playerOne = player(prompt("Enter the first player's name").trim());
+  const playerTwo = player(prompt("Enter the second player's name").trim());
+
+  const newGame = () => {
+    gameBoard.resetBoardState();
+    gameBoard.print();
+  }
+  document.querySelector('.new-game').addEventListener('click', () => {
+    newGame();
+  });
+
   const run = (index) => {
     gameBoard.updateBoardState(index);
     gameBoard.print();
@@ -92,7 +112,11 @@ const displayController = (() => {
     // });
   }
 
-  return {run};
+  const currentPlayer = (player) => {
+    return player === 1 ? playerOne.getName() : playerTwo.getName();
+  }
+
+  return {run, currentPlayer};
 })();
 
 gameBoard.print();
