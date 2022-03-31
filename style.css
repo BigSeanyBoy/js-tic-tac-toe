@@ -1,13 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap");
+
 body {
+  background-color: rgb(20, 180, 160);
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Fuzzy Bubbles";
 }
 
 .board {
-  height: 120px;
-  width: 120px;
+  --board-size: calc(calc(50vh + 50vw) / 2);
+  height: min(var(--board-size), 600px);
+  width: min(var(--board-size), 600px);
   display: grid;
   grid-template-rows: repeat(3, 1fr);
 }
@@ -21,7 +27,42 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  z-index: 99;
+  font-size: 5rem;
+  --green-lines: rgb(15, 150, 135);
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.player-header {
+  font-size: 2rem;
+  margin: 0 0 40px 0;
+}
+
+#c5 {
+  outline: 4px solid var(--green-lines);
+}
+
+#c1,
+#c7 {
+  border-right: 4px solid var(--green-lines);
+}
+
+#c1,
+#c3 {
+  border-bottom: 4px solid var(--green-lines);
+}
+
+#c3,
+#c9 {
+  border-left: 4px solid var(--green-lines);
+}
+
+#c7,
+#c9 {
+  border-top: 4px solid var(--green-lines);
 }
 
 .cell:hover {
@@ -29,5 +70,13 @@ body {
 }
 
 .new-game {
-  margin: 10px;
+  background-color: whitesmoke;
+  font-family: "Fuzzy Bubbles";
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgb(20, 180, 160);
+  padding: 1rem 2rem;
+  margin: 40px;
+  border: none;
+  border-radius: 16px;
 }

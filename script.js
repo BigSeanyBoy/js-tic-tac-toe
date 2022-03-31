@@ -8,6 +8,7 @@ const gameBoard = (() => {
 
   const resetBoardState = () => {
     boardState = Array(9).fill().map((_, i) => i + 1);
+    playerTurn = 1;
   }
 
   const updateBoardState = (index) => {
@@ -72,10 +73,15 @@ const gameBoard = (() => {
       for (let j = 0; j < 3; j++) {
         const cell = document.createElement('div');
         cell.classList.add('cell')
-        cell.setAttribute('id', `${i * 3 + j + 1}`);
-        cell.textContent = boardState[i * 3 + j];
+
+        const position = i * 3 + j;
+        cell.setAttribute('id', `c${position + 1}`);
+        if (typeof boardState[position] !== 'number') {
+          cell.textContent = boardState[position] ;
+          cell.style.color = boardState[position] === 'X' ? 'rgb(74, 74, 74)' : 'rgb(240, 230, 205';
+        }
         cell.addEventListener('click', () => {
-          displayController.run(cell.getAttribute('id') - 1)
+          displayController.run(parseInt(cell.getAttribute('id').charAt(1)) - 1)
         });
         row.appendChild(cell);
       }
